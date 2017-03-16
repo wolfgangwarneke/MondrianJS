@@ -13,8 +13,9 @@ var maxDividers = 10;
 var dividers = [];
 
 //hex colors
-var white = "#fff";
-var black = "#000";
+var white = "#ffffff";
+var black = "#000000";
+var blue = '#0000ff';
 
 
 
@@ -51,7 +52,6 @@ Divider.prototype.drawSelf = function () {
 
 function verifyNoOverlap(group, element) {
   var flag = true;
-  console.log(element);
   for ( i = 0; i < group.length; i++ ) {
     if (
       (group[i].axis.x === 0 && element.axis.x === 0 && Math.abs(group[i].axis.y - element.axis.y) < element.width * 2)
@@ -62,6 +62,21 @@ function verifyNoOverlap(group, element) {
     }
   }
   return flag;
+}
+
+function fillSquare() {
+  var randomIndex = Math.floor(Math.random() * (dividers.length - 1));
+  var randomDivider = dividers[randomIndex];
+  console.log('Random Divider:');
+  console.log(randomDivider);
+
+  var intersections = dividers.filter(function(entry) {
+    return randomDivider.axis.x === entry.axis.y || randomDivider.axis.y === entry.axis.x;
+  });
+  console.log("Intersections:");
+  console.log(intersections);
+
+
 }
 
 function generateMondrian() {
@@ -75,9 +90,11 @@ function generateMondrian() {
     if (verifyNoOverlap(dividers, divider)) {
       divider.drawSelf();
       dividers.push(divider);
-      console.log("did add");
-    } else console.log("did not add");
+    }
   }
+
+  if (dividers.length > 0) fillSquare();
+
 }
 
 
