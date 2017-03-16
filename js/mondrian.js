@@ -28,7 +28,6 @@ function getRandomAxis() {
   var trueOrFalse = (Math.floor(Math.random() * 2) == 0);
   var randomX = intRandomRange(0, canvas.width);
   var randomY = intRandomRange(0, canvas.height);
-  console.log(trueOrFalse);
   return trueOrFalse ? { x: randomX, y: 0 } : { x: 0, y: randomY };
 }
 
@@ -40,7 +39,6 @@ function clearCanvas() {
 function Divider(width, axis = getRandomAxis()) {
   this.axis = axis;
   this.width = width;
-  this.drawSelf();
 }
 
 Divider.prototype.drawSelf = function () {
@@ -51,6 +49,21 @@ Divider.prototype.drawSelf = function () {
   }
 };
 
+function verifyNoOverlap(group, element) {
+  var flag = true;
+  console.log(element);
+  for ( i = 0; i < group.length; i++ ) {
+    if (
+      (group[i].axis.x === 0 && element.axis.x === 0 && Math.abs(group[i].axis.y - element.axis.y) < element.width * 2)
+      ||
+      (group[i].axis.y === 0 && element.axis.y === 0 && Math.abs(group[i].axis.x - element.axis.x) < element.width * 2)
+    ) {
+      flag = false;
+    }
+  }
+  return flag;
+}
+
 function generateMondrian() {
   clearCanvas();
   dividers = [];
@@ -58,7 +71,12 @@ function generateMondrian() {
   ctx.fillStyle = black;
   var totalLines = intRandomRange(minDividers, maxDividers);
   for (i = 0; i < totalLines; i++) {
-    dividers.push(new Divider(dividerWidth));
+    var divider = new Divider(dividerWidth);
+    if (verifyNoOverlap(dividers, divider)) {
+      divider.drawSelf();
+      dividers.push(divider);
+      console.log("did add");
+    } else console.log("did not add");
   }
 }
 
