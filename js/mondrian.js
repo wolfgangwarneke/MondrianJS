@@ -64,7 +64,9 @@ function verifyNoOverlap(group, element) {
   return flag;
 }
 
-function fillSquare() {
+function fillTile() {
+  var tileData = { x: 0, y: 0, width: 0, height: 0 };
+
   var randomIndex = Math.floor(Math.random() * (dividers.length - 1));
   var randomDivider = dividers[randomIndex];
   console.log('Random Divider:');
@@ -76,6 +78,29 @@ function fillSquare() {
   console.log("Intersections:");
   console.log(intersections);
 
+  if (intersections.length > 0) {
+    var randomIndex = Math.floor(Math.random() * (intersections.length - 1));
+    var randomIntersection = intersections.splice(randomIndex, 1)[0];
+    var closestNeighborIntersection = randomIntersection;//to avoid errors
+    console.log("Random Intersection:");
+    console.log(randomIntersection);
+
+    if (intersections.length > 1) {
+      for (i = 0; i < intersections.length; i++) {
+        // debugger;
+        if (randomIntersection.axis.y === intersections[i].axis.y) {
+          if ( Math.abs(closestNeighborIntersection.axis.x - randomIntersection.axis.x) < Math.abs(intersections[i].axis.x - randomIntersection.axis.x) ) {
+            closestNeighborIntersection = intersections[i];
+          }
+        } else if (randomIntersection.axis.y === intersections[i].axis.y) {
+
+        }
+      }
+
+      console.log("Closest Neighbor Intersection:");
+      console.log(closestNeighborIntersection);
+    }
+  }
 
 }
 
@@ -93,7 +118,7 @@ function generateMondrian() {
     }
   }
 
-  if (dividers.length > 0) fillSquare();
+  if (dividers.length > 0) fillTile();
 
 }
 
