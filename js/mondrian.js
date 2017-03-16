@@ -64,8 +64,20 @@ function verifyNoOverlap(group, element) {
   return flag;
 }
 
+function Tile(upperLeftXY = {x: 0, y: 0 }, width = canvas.width, height = canvas.height) {
+  this.origin = upperLeftXY;
+  this.width = width;
+  this.height = height;
+  this.color = "rgba(0, 0, 255, 0.5)";
+}
+
+Tile.prototype.drawSelf = function () {
+  ctx.fillStyle = this.color;
+  ctx.fillRect(this.origin.x, this.origin.y, this.width, this.height);
+};
+
 function fillTile() {
-  var tileData = { x: 0, y: 0, width: 0, height: 0 };
+  var tile = new Tile();
 
   var randomIndex = Math.floor(Math.random() * (dividers.length - 1));
   var randomDivider = dividers[randomIndex];
@@ -99,8 +111,32 @@ function fillTile() {
 
       console.log("Closest Neighbor Intersection:");
       console.log(closestNeighborIntersection);
+
+
     }
   }
+
+  if (randomDivider.axis.x === 0) {
+    var trueOrFalse = (Math.floor(Math.random() * 2) == 0);
+    if (intersections.length === 0) {
+      console.log('if');
+      if (trueOrFalse) tile.height = randomDivider.axis.y;
+      else {
+        tile.height = canvas.height - randomDivider.axis.y + randomDivider.width;
+        tile.origin.y = randomDivider.axis.y + randomDivider.width;
+      }
+    }
+  } else if (randomDivider.axis.y === 0) {
+      console.log('else');
+      if (trueOrFalse) tile.width = randomDivider.axis.x;
+      else {
+        tile.width = canvas.width - randomDivider.axis.x + randomDivider.width;
+        tile.origin.x = randomDivider.axis.x + randomDivider.width;
+      }
+
+  }
+
+  tile.drawSelf();
 
 }
 
@@ -120,8 +156,8 @@ function generateMondrian() {
 
   if (dividers.length > 0) fillTile();
 
-}
 
+}
 
 
 canvas.onclick = generateMondrian;
