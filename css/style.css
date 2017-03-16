@@ -1,0 +1,7 @@
+:root {
+  background-color: #f8f8f8;
+}
+
+#mondrian-container canvas {
+  border: 2px solid black;
+}
