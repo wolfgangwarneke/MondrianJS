@@ -1,3 +1,7 @@
+Array.prototype.random = function () {
+  return this[Math.floor((Math.random()*this.length))];
+}
+
 var container = document.getElementById("mondrian-container");
 
 var canvas = document.createElement("canvas");
@@ -16,6 +20,9 @@ var dividers = [];
 var white = "#ffffff";
 var black = "#000000";
 var blue = '#0000ff';
+var yellow = '#ffff00';
+var red = '#ff0000';
+var tileColors = [blue, red, yellow];
 
 
 
@@ -69,7 +76,7 @@ function Tile(upperLeftXY = {x: 0, y: 0 }, width = canvas.width, height = canvas
   this.origin = upperLeftXY;
   this.width = width;
   this.height = height;
-  this.color = "rgba(0, 0, 255, 0.5)";
+  this.color = tileColors.random();
 }
 
 Tile.prototype.drawSelf = function () {
@@ -122,7 +129,7 @@ function fillTile() {
   });
   console.log("Parallel dividers:");
   console.log(parallelDividers);
-  var nextDivider = findNextGreaterDivider(randomDivider, parallelDividers, 2);
+  var nextDivider = findNextGreaterDivider(randomDivider, parallelDividers);
   console.log("Next divider:");
   console.log(nextDivider);
 
@@ -191,22 +198,22 @@ function fillTile() {
   tile.width = width;
   tile.height = height;
 
-  function ifExistsThenColor(divider, color) {
-    ctx.fillStyle = color;
-    divider.drawSelf();
-  }
-  ifExistsThenColor(randomDivider, "#ff0000");
-  ifExistsThenColor(nextDivider, "#ff7777");
-  ifExistsThenColor(randomIntersection, "#ffff00");
-  ifExistsThenColor(nextIntersection, "#ffff99");
+  // function ifExistsThenColor(divider, color) {
+  //   ctx.fillStyle = color;
+  //   divider.drawSelf();
+  // }
+  // ifExistsThenColor(randomDivider, "#ff0000");
+  // ifExistsThenColor(nextDivider, "#ff7777");
+  // ifExistsThenColor(randomIntersection, "#ffff00");
+  // ifExistsThenColor(nextIntersection, "#ffff99");
 
   console.log(tile);
-  tile.color = "#0033ff";
+  //tile.color = "#0033ff";
   tile.drawSelf();
-  tile.width /= 2;
-  tile.height /= 2;
-  tile.color = "rgba(100, 100, 256, 0.7)";
-  tile.drawSelf();
+  // tile.width /= 2;
+  // tile.height /= 2;
+  // tile.color = "rgba(100, 100, 256, 0.7)";
+  // tile.drawSelf();
 
 }
 
@@ -238,7 +245,11 @@ function generateMondrian() {
 
   setupGhostBoundaryDividers(dividers, canvas);
 
-  if (dividers.length > 0) fillTile();
+  if (dividers.length > 0) {
+    fillTile();
+    fillTile();
+    fillTile();
+  }
 
 
 }
