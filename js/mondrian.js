@@ -89,23 +89,16 @@ function fillTile() {
 
   var randomIndex = Math.floor(Math.random() * (dividers.length - 1));
   var randomDivider = dividers.splice(randomIndex, 1)[0];
-  console.log('Random Divider:');
-  console.log(randomDivider);
 
   var intersections = dividers.filter(function(entry) {
     return randomDivider.direction !== entry.direction;
   });
-  console.log("Intersections:");
-  console.log(intersections);
 
   var randomIntersection = intersections.splice(Math.floor(Math.random()*intersections.length), 1)[0];
-  console.log("Random intersection:");
-  console.log(randomIntersection);
 
   function findNextGreaterDivider(divider, dividers, index = 0) {
     var nextGreaterDivider;
     var xOrY = divider.direction === "vertical" ? "x" : "y";
-    console.log("xOrY is: " + xOrY);
 
     var greaterDividers = dividers.filter(function(entry) {
       return entry.axis[xOrY] > divider.axis[xOrY];
@@ -121,33 +114,13 @@ function fillTile() {
   }
 
   var nextIntersection = findNextGreaterDivider(randomIntersection, intersections);
-  console.log("Next intersection");
-  console.log(nextIntersection);
 
   var parallelDividers = dividers.filter(function(entry) {
     return randomDivider.direction === entry.direction;
   });
-  console.log("Parallel dividers:");
-  console.log(parallelDividers);
+
   var nextDivider = findNextGreaterDivider(randomDivider, parallelDividers);
-  console.log("Next divider:");
-  console.log(nextDivider);
 
-  console.log("-----");
-  console.log("-----");
-  console.log("-----");
-  console.log("-----");
-  console.log("-----");
-  console.log("-----");
-
-  console.log('Random Divider:');
-  console.log(randomDivider);
-  console.log("Next divider:");
-  console.log(nextDivider);
-  console.log("Random intersection:");
-  console.log(randomIntersection);
-  console.log("Next intersection");
-  console.log(nextIntersection);
 
   //find upperLeftXY of Tile
   var enclosingDividers = [];
@@ -173,8 +146,6 @@ function fillTile() {
 
   var upperLeftX = leftDivider.axis.x + leftDivider.width;
   var upperLeftY = topDivider.axis.y + topDivider.width;
-  console.log("Upper left X: " + upperLeftX);
-  console.log("Upper left Y: " + upperLeftY);
 
   tile.origin.x = upperLeftX;
   tile.origin.y = upperLeftY;
@@ -186,15 +157,10 @@ function fillTile() {
   }
   var rightDivider = getGreaterDivider(verticalDividers[0], verticalDividers[1]);
   var bottomDivider = getGreaterDivider(horizontalDividers[0], horizontalDividers[1]);
-  console.log("Right divider:");
-  console.log(rightDivider);
-  console.log("bottom divider:");
-  console.log(bottomDivider);
 
   var width = rightDivider.axis.x - leftDivider.axis.x - rightDivider.width;
   var height = bottomDivider.axis.y - topDivider.axis.y - bottomDivider.width;
-  console.log(width);
-  console.log(height);
+
   tile.width = width;
   tile.height = height;
 
@@ -207,7 +173,6 @@ function fillTile() {
   // ifExistsThenColor(randomIntersection, "#ffff00");
   // ifExistsThenColor(nextIntersection, "#ffff99");
 
-  console.log(tile);
   //tile.color = "#0033ff";
   tile.drawSelf();
   // tile.width /= 2;
