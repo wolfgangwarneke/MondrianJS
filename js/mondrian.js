@@ -95,7 +95,7 @@ function fillTile() {
   console.log("Random intersection:");
   console.log(randomIntersection);
 
-  function findNextGreaterDivider(divider, dividers) {
+  function findNextGreaterDivider(divider, dividers, index = 0) {
     var nextGreaterDivider;
     var xOrY = divider.direction === "vertical" ? "x" : "y";
     console.log("xOrY is: " + xOrY);
@@ -108,7 +108,7 @@ function fillTile() {
       return a.axis[xOrY] - b.axis[xOrY];
     });
 
-    nextGreaterDivider = greaterDividers[0];
+    nextGreaterDivider = greaterDividers[index];
 
     return nextGreaterDivider;
   }
@@ -122,7 +122,7 @@ function fillTile() {
   });
   console.log("Parallel dividers:");
   console.log(parallelDividers);
-  var nextDivider = findNextGreaterDivider(randomDivider, parallelDividers);
+  var nextDivider = findNextGreaterDivider(randomDivider, parallelDividers, 2);
   console.log("Next divider:");
   console.log(nextDivider);
 
