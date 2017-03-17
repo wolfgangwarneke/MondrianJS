@@ -204,12 +204,24 @@ function fillTile() {
   ifExistsThenColor(nextIntersection, "#ffff99");
 
   console.log(tile);
+  tile.color = "#0033ff";
   tile.drawSelf();
   tile.width /= 2;
   tile.height /= 2;
   tile.color = "rgba(100, 100, 256, 0.7)";
   tile.drawSelf();
 
+}
+
+function setupGhostBoundaryDividers(dividerArray, canvasOutput) {
+  var top = new Divider(dividerWidth, {x: -dividerWidth, y: 0});
+  dividerArray.push(top);
+  var bottom = new Divider(dividerWidth, {x: canvas.height, y: 0});
+  dividerArray.push(bottom);
+  var left = new Divider(dividerWidth, {x: 0, y: -dividerWidth});
+  dividerArray.push(left);
+  var right = new Divider(dividerWidth, {x: 0, y: canvas.width});
+  dividerArray.push(right);
 }
 
 function generateMondrian() {
@@ -226,6 +238,8 @@ function generateMondrian() {
       dividers.push(divider);
     }
   }
+
+  setupGhostBoundaryDividers(dividers, canvas);
 
   if (dividers.length > 0) fillTile();
 
