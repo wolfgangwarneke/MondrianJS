@@ -100,19 +100,16 @@ function fillTile() {
     var xOrY = divider.direction === "vertical" ? "x" : "y";
     console.log("xOrY is: " + xOrY);
 
-    for (i = 0; i < dividers.length; i++) {
-      var applicableIntersection;
-      console.log("from array " + dividers[i].axis[xOrY]);
-      console.log("from random " + divider.axis[xOrY]);
-      if (dividers[i].axis[xOrY] > divider.axis[xOrY]) {
-        applicableIntersection = dividers[i];
-      }
-      if (applicableIntersection) {
-        if (nextGreaterDivider && applicableIntersection.axis[xOrY] < nextGreaterDivider.axis[xOrY]) {
-          nextGreaterDivider = applicableIntersection;
-        } else nextGreaterDivider = applicableIntersection;
-      }
-    }
+    var greaterDividers = dividers.filter(function(entry) {
+      return entry.axis[xOrY] > divider.axis[xOrY];
+    });
+
+    greaterDividers.sort(function(a, b) {
+      return a.axis[xOrY] - b.axis[xOrY];
+    });
+
+    nextGreaterDivider = greaterDividers[0];
+
     return nextGreaterDivider;
   }
 
