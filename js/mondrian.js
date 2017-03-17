@@ -40,6 +40,7 @@ function clearCanvas() {
 function Divider(width, axis = getRandomAxis()) {
   this.axis = axis;
   this.width = width;
+  this.direction = this.axis.x === 0 ? "horizontal" : "vertical";
 }
 
 Divider.prototype.drawSelf = function () {
@@ -80,67 +81,139 @@ function fillTile() {
   var tile = new Tile();
 
   var randomIndex = Math.floor(Math.random() * (dividers.length - 1));
-  var randomDivider = dividers[randomIndex];
+  var randomDivider = dividers.splice(randomIndex, 1)[0];
   console.log('Random Divider:');
   console.log(randomDivider);
 
   var intersections = dividers.filter(function(entry) {
-    return randomDivider.axis.x === entry.axis.y || randomDivider.axis.y === entry.axis.x;
+    return randomDivider.direction !== entry.direction;
   });
   console.log("Intersections:");
   console.log(intersections);
 
-  if (intersections.length > 0) {
-    var randomIndex = Math.floor(Math.random() * (intersections.length - 1));
-    var randomIntersection = intersections.splice(randomIndex, 1)[0];
-    var closestNeighborIntersection = randomIntersection;//to avoid errors
-    console.log("Random Intersection:");
-    console.log(randomIntersection);
+  var randomIntersection = intersections.splice(Math.floor(Math.random()*intersections.length), 1)[0];
+  console.log("Random intersection:");
+  console.log(randomIntersection);
 
-    if (intersections.length > 1) {
-      for (i = 0; i < intersections.length; i++) {
-        // debugger;
-        if (randomIntersection.axis.y === intersections[i].axis.y) {
-          if ( Math.abs(closestNeighborIntersection.axis.x - randomIntersection.axis.x) < Math.abs(intersections[i].axis.x - randomIntersection.axis.x) ) {
-            closestNeighborIntersection = intersections[i];
-          }
-        } else if (randomIntersection.axis.y === intersections[i].axis.y) {
+  function findNextGreaterDivider(divider, dividers) {
+    var nextGreaterDivider;
+    var xOrY = divider.direction === "vertical" ? "x" : "y";
+    console.log("xOrY is: " + xOrY);
 
-        }
+    for (i = 0; i < dividers.length; i++) {
+      var applicableIntersection;
+      console.log("from array " + dividers[i].axis[xOrY]);
+      console.log("from random " + divider.axis[xOrY]);
+      if (dividers[i].axis[xOrY] > divider.axis[xOrY]) {
+        applicableIntersection = dividers[i];
       }
-
-      console.log("Closest Neighbor Intersection:");
-      console.log(closestNeighborIntersection);
-
-
-    }
-  }
-
-  if (randomDivider.axis.x === 0) {
-    var trueOrFalse = (Math.floor(Math.random() * 2) == 0);
-    if (intersections.length === 0) {
-      console.log('if');
-      if (trueOrFalse) tile.height = randomDivider.axis.y;
-      else {
-        tile.height = canvas.height - randomDivider.axis.y + randomDivider.width;
-        tile.origin.y = randomDivider.axis.y + randomDivider.width;
+      if (applicableIntersection) {
+        if (nextGreaterDivider && applicableIntersection.axis[xOrY] < nextGreaterDivider.axis[xOrY]) {
+          nextGreaterDivider = applicableIntersection;
+        } else nextGreaterDivider = applicableIntersection;
       }
     }
-  } else if (randomDivider.axis.y === 0) {
-      console.log('else');
-      if (trueOrFalse) tile.width = randomDivider.axis.x;
-      else {
-        tile.width = canvas.width - randomDivider.axis.x + randomDivider.width;
-        tile.origin.x = randomDivider.axis.x + randomDivider.width;
-      }
-
+    return nextGreaterDivider;
   }
 
+  var nextIntersection = findNextGreaterDivider(randomIntersection, intersections);
+  console.log("Next intersection");
+  console.log(nextIntersection);
+
+  var parallelDividers = dividers.filter(function(entry) {
+    return randomDivider.direction === entry.direction;
+  });
+  console.log("Parallel dividers:");
+  console.log(parallelDividers);
+  var nextDivider = findNextGreaterDivider(randomDivider, parallelDividers);
+  console.log("Next divider:");
+  console.log(nextDivider);
+
+  console.log("-----");
+  console.log("-----");
+  console.log("-----");
+  console.log("-----");
+  console.log("-----");
+  console.log("-----");
+
+  console.log('Random Divider:');
+  console.log(randomDivider);
+  console.log("Next divider:");
+  console.log(nextDivider);
+  console.log("Random intersection:");
+  console.log(randomIntersection);
+  console.log("Next intersection");
+  console.log(nextIntersection);
+
+  //find upperLeftXY of Tile
+  var enclosingDividers = [];
+  if (randomDivider) enclosingDividers.push(randomDivider);
+  if (nextDivider) enclosingDividers.push(nextDivider);
+  if (randomIntersection) enclosingDividers.push(randomIntersection);
+  if (nextIntersection) enclosingDividers.push(nextIntersection);
+
+  function getLesserDivider(firstDivider, secondDivider) {
+    var xOrY = firstDivider.direction === "horizontal" ? "y" : "x";
+    return firstDivider.axis[xOrY] < secondDivider.axis[xOrY] ? firstDivider : secondDivider;
+  }
+
+  var horizontalDividers = enclosingDividers.filter(function(entry) {
+    return entry.direction === "horizontal";
+  });
+  var topDivider = getLesserDivider(horizontalDividers[0], horizontalDividers[1]);
+
+  var verticalDividers = enclosingDividers.filter(function(entry) {
+    return entry.direction === "vertical";
+  });
+  var leftDivider = getLesserDivider(verticalDividers[0], verticalDividers[1]);
+
+  var upperLeftX = leftDivider.axis.x + leftDivider.width;
+  var upperLeftY = topDivider.axis.y + topDivider.width;
+  console.log("Upper left X: " + upperLeftX);
+  console.log("Upper left Y: " + upperLeftY);
+
+  tile.origin.x = upperLeftX;
+  tile.origin.y = upperLeftY;
+
+  // get lower right XY of tile for width and height
+  function getGreaterDivider(firstDivider, secondDivider) {
+    var xOrY = firstDivider.direction === "horizontal" ? "y" : "x";
+    return firstDivider.axis[xOrY] > secondDivider.axis[xOrY] ? firstDivider : secondDivider;
+  }
+  var rightDivider = getGreaterDivider(verticalDividers[0], verticalDividers[1]);
+  var bottomDivider = getGreaterDivider(horizontalDividers[0], horizontalDividers[1]);
+  console.log("Right divider:");
+  console.log(rightDivider);
+  console.log("bottom divider:");
+  console.log(bottomDivider);
+
+  var width = rightDivider.axis.x - leftDivider.axis.x - rightDivider.width;
+  var height = bottomDivider.axis.y - topDivider.axis.y - bottomDivider.width;
+  console.log(width);
+  console.log(height);
+  tile.width = width;
+  tile.height = height;
+
+  function ifExistsThenColor(divider, color) {
+    ctx.fillStyle = color;
+    divider.drawSelf();
+  }
+  ifExistsThenColor(randomDivider, "#ff0000");
+  ifExistsThenColor(nextDivider, "#ff7777");
+  ifExistsThenColor(randomIntersection, "#ffff00");
+  ifExistsThenColor(nextIntersection, "#ffff99");
+
+  console.log(tile);
+  tile.drawSelf();
+  tile.width /= 2;
+  tile.height /= 2;
+  tile.color = "rgba(100, 100, 256, 0.7)";
   tile.drawSelf();
 
 }
 
 function generateMondrian() {
+  console.clear();
   clearCanvas();
   dividers = [];
 
