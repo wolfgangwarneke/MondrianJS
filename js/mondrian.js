@@ -19,10 +19,13 @@ var dividers = [];
 //hex colors
 var white = "#ffffff";
 var black = "#000000";
-var blue = '#0000ff';
-var yellow = '#ffff00';
+var grey = "#d9e5f7";
+var blue = '#2c5fd6';
+var lightBlue = '#4286f4';
+var yellow = '#ffef1c';
+var dirtyYellow = '#ddc106';
 var red = '#ff0000';
-var tileColors = [blue, red, yellow];
+var tileColors = [blue, red, yellow, grey];
 
 
 
