@@ -8,6 +8,9 @@ var canvas = document.createElement("canvas");
 canvas.width = 500;
 canvas.height = 500;
 container.appendChild(canvas);
+var fallBackMessage = document.createElement("p");
+fallBackMessage.innerText = "Your browser does not support MondrianJS.  Please go look at one of his real paintings.  Or just imagine a bunch of rectangles with black borders and some of the rectangles are either blue, red, or yellow.  That's pretty much it really.";
+canvas.appendChild(fallBackMessage);
 
 var ctx = canvas.getContext("2d");
 
