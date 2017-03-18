@@ -15,8 +15,8 @@ canvas.appendChild(fallBackMessage);
 var ctx = canvas.getContext("2d");
 
 var dividerWidth = canvas.width * 0.025;
-var minDividers = 2;
-var maxDividers = 10;
+var minDividers = 4;
+var maxDividers = 9;
 var dividers = [];
 
 //hex colors
