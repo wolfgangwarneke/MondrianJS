@@ -9,3 +9,13 @@
 .wrapper {
   text-align: center;
 }
+
+h1 {
+  font-family: 'Poiret One', cursive;
+  font-size: 2.4em;
+}
+
+p {
+  font-family: 'Voltaire', sans-serif;
+  font-size: 1.4em;
+}
