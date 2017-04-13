@@ -19,6 +19,9 @@ var minDividers = 4;
 var maxDividers = 9;
 var dividers = [];
 
+var minTiles = 1;
+var maxTiles = 5;
+
 //hex colors
 var white = "#ffffff";
 var black = "#000000";
@@ -216,6 +219,8 @@ function generateMondrian() {
   clearCanvas();
   dividers = [];
 
+  var tileAmount = Math.random() * (maxTiles - minTiles) + minTiles;
+
   ctx.fillStyle = black;
   var totalLines = intRandomRange(minDividers, maxDividers);
   for (i = 0; i < totalLines; i++) {
@@ -228,10 +233,11 @@ function generateMondrian() {
 
   setupGhostBoundaryDividers(dividers, canvas);
 
+
   if (dividers.length > 0) {
-    fillTile();
-    fillTile();
-    fillTile();
+    for (i = 0; i < tileAmount; i++) {
+      fillTile();
+    }
   }
 
 
