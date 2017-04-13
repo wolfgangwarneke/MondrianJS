@@ -23,7 +23,7 @@ var minTiles = 1;
 var maxTiles = 5;
 
 //hex colors
-var white = "#ffffff";
+var white = "#fefefe";
 var black = "#000000";
 var grey = "#d9e5f7";
 var blue = '#2c5fd6';
