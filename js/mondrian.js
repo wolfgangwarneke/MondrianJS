@@ -86,7 +86,7 @@ function Tile(upperLeftXY = {x: 0, y: 0 }, width = canvas.width, height = canvas
 }
 
 Tile.prototype.drawSelf = function () {
-  ctx.fillStyle = this.color;
+  ctx.fillStyle = Math.abs(this.width) !== dividerWidth ? this.color : black;
   ctx.fillRect(this.origin.x, this.origin.y, this.width, this.height);
 };
 
@@ -137,7 +137,13 @@ function fillTile() {
 
   function getLesserDivider(firstDivider, secondDivider) {
     var xOrY = firstDivider.direction === "horizontal" ? "y" : "x";
-    return firstDivider.axis[xOrY] < secondDivider.axis[xOrY] ? firstDivider : secondDivider;
+    if (firstDivider && secondDivider) {
+      return firstDivider.axis[xOrY] < secondDivider.axis[xOrY] ? firstDivider : secondDivider;
+    } else if (firstDivider) {
+      return firstDivider;
+    } else if (secondDivider) {
+      return secondDivider;
+    }
   }
 
   var horizontalDividers = enclosingDividers.filter(function(entry) {
@@ -159,7 +165,13 @@ function fillTile() {
   // get lower right XY of tile for width and height
   function getGreaterDivider(firstDivider, secondDivider) {
     var xOrY = firstDivider.direction === "horizontal" ? "y" : "x";
-    return firstDivider.axis[xOrY] > secondDivider.axis[xOrY] ? firstDivider : secondDivider;
+    if (firstDivider && secondDivider) {
+      return firstDivider.axis[xOrY] > secondDivider.axis[xOrY] ? firstDivider : secondDivider;
+    } else if (firstDivider) {
+      return firstDivider;
+    } else if (secondDivider) {
+      return secondDivider;
+    }
   }
   var rightDivider = getGreaterDivider(verticalDividers[0], verticalDividers[1]);
   var bottomDivider = getGreaterDivider(horizontalDividers[0], horizontalDividers[1]);
