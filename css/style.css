@@ -44,7 +44,7 @@ footer {
 @media only screen
   and (max-width: 850px) {
     p, footer {
-      background: none;
+      background: none !important;
     }
 }
 
