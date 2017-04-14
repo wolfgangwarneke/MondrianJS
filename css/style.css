@@ -42,6 +42,13 @@ footer {
 }
 
 @media only screen
+  and (max-device-width: 850px) {
+    p, footer {
+      background-color: white;
+    }
+}
+
+@media only screen
   and (max-device-width: 700px)
   and (orientation: landscape) {
     :root {
@@ -152,7 +159,7 @@ footer {
       position: fixed;
       width: 100vw;
       max-width: 100%;
-      bottom: 3em;
+      bottom: 2em;
       left: 0;
     }
 
