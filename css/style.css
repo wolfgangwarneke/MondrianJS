@@ -45,6 +45,7 @@ footer {
   and (max-width: 850px) {
     p, footer {
       background: none !important;
+      background-color: white !important;
     }
 }
 
