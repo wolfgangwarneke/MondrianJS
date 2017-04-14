@@ -1,6 +1,7 @@
 :root {
   background-color: #f8f8f8;
   background: linear-gradient(to right, rgba(255, 5, 5, 0.8), #ed0e0e 10%, #ed0e0e 30%, #363636 30%, #363636 32%, #fcfcfc 32%, #fcfcfc 74%, #363636 74%, #363636 76%, #ffec5e 76%, #ffec5e 84%, #363636 84%, #363636 86%, white 86%, rgba(0, 0, 255, 0.08) );
+  overflow: hidden;
 }
 
 #mondrian-container canvas {
@@ -37,4 +38,90 @@ footer {
   margin: 1em auto;
   background-color: #fff;
   background: linear-gradient(to right, transparent, transparent 5%, white 10%, white 90%, transparent 95%,  transparent);
+}
+
+@media only screen
+  and (max-device-width: 700px)
+  and (orientation: landscape) {
+    :root {
+      position: relative;
+    }
+    #mondrian-container {
+      position: absolute;
+      left: 30%;
+      top: 0;
+    }
+
+    h1 {
+      font-size: 2em;
+      position: absolute;
+      left: 2%;
+      top: 0;
+    }
+
+    p, footer {
+      max-width: 30%;
+      left: 0;
+      background-color: white;
+      border-top: 10px solid #333;
+    }
+
+    p {
+      position: absolute;
+      top: 30%;
+      border-bottom: 10px solid #333;
+      padding-top: 0.8em;
+      padding-bottom: 1.2em;
+    }
+
+    footer {
+      position: absolute;
+      left: 0;
+      bottom: -20%;
+      padding-top: 0.5em;
+      padding-bottom: 10%;
+    }
+
+    #above {
+      display: none;
+    }
+
+    #mondrian-container canvas {
+      border: none;
+      border-left: 5px solid #333;
+      box-shadow: none;
+    }
+
+}
+
+@media only screen
+  and (max-device-width: 850px)
+  and (orientation: landscape) {
+    #mondrian-container {
+      left: 36%;
+    }
+
+    p, footer {
+      width: 36%;
+      max-width: 36%;
+    }
+
+    h1 {
+      left: 4%;
+    }
+}
+
+@media only screen
+  and (max-device-width: 650px)
+  and (orientation: portrait) {
+    .wrapper {
+      padding: 0;
+      margin: 0;
+    }
+
+    #mondrian-container canvas {
+      margin-left: -5%;
+      width: 120vw;
+      height: 80vh;
+    }
 }
