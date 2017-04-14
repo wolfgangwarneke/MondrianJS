@@ -168,11 +168,11 @@ footer {
 
 
 @media only screen and (min-device-width: 900px) {
-  p {
+  /*p {
     background: linear-gradient(to right, transparent, transparent 5%, white 15%, white 85%, transparent 95%,  transparent) !important;
   }
 
   footer {
     background: linear-gradient(to right, transparent, transparent 5%, white 10%, white 90%, transparent 95%,  transparent) !important;
-  }
+  }*/
 }
