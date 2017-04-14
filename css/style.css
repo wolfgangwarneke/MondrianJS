@@ -126,10 +126,11 @@ footer {
 
     #mondrian-container canvas {
       position: absolute;
-      margin-left: -5%;
       top: 18vh;
       left: 0;
-      width: 110vw;
+      width: 100vw;
+      border-left: none;
+      border-right: none;
     }
 
     p {
