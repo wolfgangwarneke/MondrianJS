@@ -41,14 +41,18 @@ footer {
 
 @media only screen
   and (max-width: 890px) {
-    p, footer {
+    /*p, footer {
       border: 5px solid #373737;
       background-color: #f6f6f6;
       border-radius: 2px;
-    }
+    }*/
 
     footer {
-      padding: 0.5em;
+      background-color: transparent;
+    }
+
+    :root {
+      background: linear-gradient(to bottom, rgba(255, 5, 5, 0.8), #ed0e0e 10%, #ed0e0e 30%, #363636 30%, #363636 32%, #fcfcfc 32%, #fcfcfc 54%, #363636 54%, #363636 56%, #ffec5e 56%, #ffec5e 90%, #363636 90%, #363636 92%, white 92%, rgba(0, 0, 255, 0.08) 130% );
     }
 }
 
