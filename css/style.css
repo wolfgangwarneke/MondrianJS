@@ -1,6 +1,7 @@
 :root {
   background-color: #f8f8f8;
-  background: linear-gradient(to right, rgba(255, 5, 5, 0.8), #ed0e0e 10%, #ed0e0e 30%, #363636 30%, #363636 32%, #fcfcfc 32%, #fcfcfc 74%, #363636 74%, #363636 76%, #ffec5e 76%, #ffec5e 84%, #363636 84%, #363636 86%, white 86%, rgba(0, 0, 255, 0.08) );
+  background: linear-gradient(to right, rgba(255, 5, 5, 0.8), #ed0e0e 10%, #ed0e0e 30%, #363636 30%, #363636 32%, #fcfcfc 32%, #fcfcfc 74%, #363636 74%, #363636 76%, #ffec5e 76%, #ffec5e 84%, #363636 84%, #363636 86%, white 86%, rgba(0, 0, 255, 0.08) 150% );
+  background-attachment: fixed;
   overflow: hidden;
 }
 
@@ -114,20 +115,46 @@ footer {
 @media only screen
   and (max-device-width: 650px)
   and (orientation: portrait) {
-    .wrapper {
-      padding: 0;
-      margin: 0;
+    :root {
+      position: relative;
+    }
+
+    body {
+      margin-left: 0;
     }
 
     #mondrian-container canvas {
+      position: absolute;
       margin-left: -5%;
-      width: 120vw;
-      height: 77vh;
+      top: 18vh;
+      left: 0;
+      width: 110vw;
     }
 
     p {
+      width: 100vw;
+      max-width: 100%;
       background-color: white;
-      border: 8px solid #333;
+      border-top: 8px solid #333;
+      border-bottom: 8px solid #333;
       border-radius: 2px;
+      padding: 0.25em;
+    }
+
+    footer {
+      font-size: 2em;
+      background: white;
+      padding: 0.3em;
+      border-top: 8px solid #333;
+      border-bottom: 8px solid #333;
+      position: absolute;
+      width: 100vw;
+      max-width: 100%;
+      bottom: 1.5em;
+      left: 0;
+    }
+
+    #above {
+      display: none;
     }
 }
