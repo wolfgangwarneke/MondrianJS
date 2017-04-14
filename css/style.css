@@ -40,9 +40,15 @@ footer {
 }
 
 @media only screen
-  and (max-width: 850px) {
+  and (max-width: 890px) {
     p, footer {
-      background-color: white !important;
+      border: 5px solid #373737;
+      background-color: #f6f6f6;
+      border-radius: 2px;
+    }
+
+    footer {
+      padding: 0.5em;
     }
 }
 
@@ -164,15 +170,4 @@ footer {
     #above {
       display: none;
     }
-}
-
-
-@media (min-width: 960px) {
-  p {
-    background: linear-gradient(to right, transparent, transparent 5%, white 15%, white 85%, transparent 95%,  transparent);
-  }
-
-  footer {
-    background: linear-gradient(to right, transparent, transparent 5%, white 10%, white 90%, transparent 95%,  transparent);
-  }
 }
