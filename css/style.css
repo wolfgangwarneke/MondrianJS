@@ -29,7 +29,6 @@ h1 {
 p {
   max-width: 400px;
   margin: 1em auto;
-  background: linear-gradient(to right, transparent, transparent 5%, white 15%, white 85%, transparent 95%,  transparent);
   font-family: 'Voltaire', sans-serif;
   font-size: 1.4em;
 }
@@ -38,16 +37,15 @@ footer {
   max-width: 300px;
   margin: 1em auto;
   background-color: #fff;
-  background: linear-gradient(to right, transparent, transparent 5%, white 10%, white 90%, transparent 95%,  transparent);
 }
 
-@media only screen
+/*@media only screen
   and (max-width: 850px) {
     p, footer {
       background: none !important;
       background-color: white !important;
     }
-}
+}*/
 
 @media only screen
   and (max-device-width: 700px)
@@ -167,4 +165,15 @@ footer {
     #above {
       display: none;
     }
+}
+
+
+@media only screen and (min-width: 850px) {
+  p {
+    background: linear-gradient(to right, transparent, transparent 5%, white 15%, white 85%, transparent 95%,  transparent);
+  }
+
+  footer {
+    background: linear-gradient(to right, transparent, transparent 5%, white 10%, white 90%, transparent 95%,  transparent);
+  }
 }
