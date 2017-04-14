@@ -91,6 +91,7 @@ footer {
       border: none;
       border-left: 5px solid #333;
       box-shadow: none;
+      width: 70vw;
     }
 
 }
