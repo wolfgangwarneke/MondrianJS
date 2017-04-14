@@ -42,9 +42,9 @@ footer {
 }
 
 @media only screen
-  and (max-device-width: 850px) {
+  and (max-width: 850px) {
     p, footer {
-      background-color: white;
+      background: none;
     }
 }
 
