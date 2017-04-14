@@ -167,12 +167,12 @@ footer {
 }
 
 
-@media only screen and (min-width: 960px) {
+@media (min-width: 960px) {
   p {
-    background: linear-gradient(to right, transparent, transparent 5%, white 15%, white 85%, transparent 95%,  transparent) !important;
+    background: linear-gradient(to right, transparent, transparent 5%, white 15%, white 85%, transparent 95%,  transparent);
   }
 
   footer {
-    background: linear-gradient(to right, transparent, transparent 5%, white 10%, white 90%, transparent 95%,  transparent) !important;
+    background: linear-gradient(to right, transparent, transparent 5%, white 10%, white 90%, transparent 95%,  transparent);
   }
 }
